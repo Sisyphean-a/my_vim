@@ -4,3 +4,33 @@
 mkdir ~/.config/nvim
 cd ~/.config/nvim
 
+# 安装nvim
+sudo pacman -S neovim
+sudo pacman -S neovim-symlinks
+
+# 检查环境
+down=$(ls /usr/bin | grep -wc curl)
+if (($down==0)); then
+	sudo pacman -S curl	
+fi
+
+python_num=$(ls /usr/bin | grep -wc python)
+if (($python_num==0)); then
+	sudo pacman -S python
+
+pip_num=$(ls /usr/bin | grep -wc pip)
+if (($pip_num==0)); then
+	sudo pacman -S pip	
+fi
+
+# 安装插件vim-plug
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+# 安装pynvim
+sudo pip3 install pynvim
+
+# 安装ctags
+sudo pacman -S ctags
+cp -f ./.ctags ~/.ctags
+
