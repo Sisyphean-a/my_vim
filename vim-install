@@ -37,3 +37,6 @@ pip3 install pynvim
 pacman -S ctags
 cp -f ./.ctags ~/.ctags
 
+
+# 移动翻译代理
+cp -f ./coc-settings.json ~/.config/nvim/coc-settings.json
