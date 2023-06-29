@@ -1,0 +1,42 @@
+#!/bin/bash
+
+# 生成目录
+mkdir -p ~/.config/nvim
+cd ~/.config/nvim
+
+# 安装nvim
+neovim=$(ls /usr/bin | grep -wc nvim)
+if (($neovim ==0)); then
+	yum install -y epel-release
+	yum install -y neovim	
+fi
+
+# 检查环境
+down=$(ls /usr/bin | grep -wc curl)
+if (($down==0)); then
+	yum install -y curl	
+fi
+
+python_num=$(ls /usr/bin | grep -wc python)
+if (($python_num==0)); then
+	yum install -y python
+
+pip_num=$(ls /usr/bin | grep -wc pip)
+if (($pip_num==0)); then
+	yum install -y python-pip	
+fi
+
+# 安装插件vim-plug
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+# 安装pynvim
+pip3 install pynvim
+
+# 安装ctags
+yum install -y ctags
+cp -f ./.ctags ~/.ctags
+
+
+# 移动翻译代理
+cp -f ./coc-settings.json ~/.config/nvim/coc-settings.json
